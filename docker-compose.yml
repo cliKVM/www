@@ -1,0 +1,53 @@
+version: '3.8'
+
+services:
+  # ═══ LANDING PAGE + NGINX ═══
+  web:
+    image: nginx:alpine
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./public:/usr/share/nginx/html:ro
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf:ro
+      - ./certs:/etc/nginx/certs:ro
+    depends_on:
+      - api
+    restart: unless-stopped
+
+  # ═══ STRIPE API BACKEND ═══
+  api:
+    build:
+      context: ./api
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      - STRIPE_SECRET_KEY=${STRIPE_SECRET_KEY}
+      - STRIPE_WEBHOOK_SECRET=${STRIPE_WEBHOOK_SECRET}
+      - STRIPE_PRICE_DEVICE=${STRIPE_PRICE_DEVICE:-price_device_99}
+      - STRIPE_PRICE_PRO=${STRIPE_PRICE_PRO:-price_pro_99_plus_sub}
+      - STRIPE_PRICE_FLEET=${STRIPE_PRICE_FLEET:-price_fleet_79}
+      - STRIPE_PRICE_SUB_PRO=${STRIPE_PRICE_SUB_PRO:-price_sub_999}
+      - DATABASE_URL=postgresql://molekvm:${DB_PASSWORD:-molekvm123}@db:5432/molekvm
+      - SENDGRID_API_KEY=${SENDGRID_API_KEY:-}
+      - ADMIN_EMAIL=${ADMIN_EMAIL:-tom@sapletta.com}
+      - NODE_ENV=production
+    depends_on:
+      - db
+    restart: unless-stopped
+
+  # ═══ POSTGRES FOR ORDERS ═══
+  db:
+    image: postgres:16-alpine
+    environment:
+      - POSTGRES_DB=molekvm
+      - POSTGRES_USER=molekvm
+      - POSTGRES_PASSWORD=${DB_PASSWORD:-molekvm123}
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ./api/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+    restart: unless-stopped
+
+volumes:
+  pgdata:
