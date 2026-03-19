@@ -1,0 +1,26 @@
+{
+  "name": "molekvm-e2e-tests",
+  "version": "1.0.0",
+  "description": "E2E Testing for MoleKVM Landing Page",
+  "scripts": {
+    "test": "playwright test",
+    "test:ui": "playwright test --ui",
+    "test:debug": "playwright test --debug",
+    "test:report": "playwright show-report",
+    "test:headed": "playwright test --headed",
+    "codegen": "playwright codegen http://localhost:8080",
+    "install:browsers": "playwright install",
+    "install:deps": "npm install"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.40.0"
+  },
+  "keywords": [
+    "e2e",
+    "testing",
+    "playwright",
+    "molekvm"
+  ],
+  "author": "Tom Sapletta",
+  "license": "Apache-2.0"
+}

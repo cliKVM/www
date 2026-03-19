@@ -1,0 +1,522 @@
+/* Plesk Panel Emulation - Plesk-like styling */
+
+:root {
+    --plesk-bg: #f5f5f5;
+    --plesk-header: #1a1a2e;
+    --plesk-sidebar: #ffffff;
+    --plesk-accent: #00d4aa;
+    --plesk-text: #333333;
+    --plesk-text-muted: #666666;
+    --plesk-border: #e0e0e0;
+    --plesk-card: #ffffff;
+    --plesk-success: #4caf50;
+    --plesk-warning: #ff9800;
+    --plesk-danger: #f44336;
+    --plesk-online: #4caf50;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    background: var(--plesk-bg);
+    color: var(--plesk-text);
+    line-height: 1.5;
+}
+
+/* Header */
+.plesk-header {
+    background: var(--plesk-header);
+    color: white;
+    padding: 0.75rem 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    height: 56px;
+}
+
+.plesk-logo {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.plesk-logo span {
+    font-size: 1.25rem;
+    font-weight: 600;
+}
+
+.plesk-logo small {
+    font-size: 0.75rem;
+    color: var(--plesk-accent);
+    font-weight: 400;
+    margin-left: 0.5rem;
+}
+
+.plesk-version {
+    font-size: 0.8rem;
+    color: #888;
+}
+
+/* Layout */
+.plesk-layout {
+    display: flex;
+    margin-top: 56px;
+    min-height: calc(100vh - 56px);
+}
+
+/* Sidebar */
+.plesk-sidebar {
+    width: 240px;
+    background: var(--plesk-sidebar);
+    border-right: 1px solid var(--plesk-border);
+    position: fixed;
+    top: 56px;
+    bottom: 0;
+    overflow-y: auto;
+}
+
+.plesk-nav {
+    padding: 1rem 0;
+}
+
+.nav-section {
+    margin-bottom: 1.5rem;
+}
+
+.nav-title {
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: var(--plesk-text-muted);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding: 0 1.25rem;
+    margin-bottom: 0.5rem;
+}
+
+.nav-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.65rem 1.25rem;
+    color: var(--plesk-text);
+    text-decoration: none;
+    transition: all 0.2s;
+    border-left: 3px solid transparent;
+}
+
+.nav-item:hover {
+    background: #f5f5f5;
+    color: var(--plesk-accent);
+}
+
+.nav-item.active {
+    background: rgba(0, 212, 170, 0.1);
+    color: var(--plesk-accent);
+    border-left-color: var(--plesk-accent);
+}
+
+.nav-item .icon {
+    font-size: 1.1rem;
+    width: 24px;
+    text-align: center;
+}
+
+/* Main Content */
+.plesk-main {
+    flex: 1;
+    margin-left: 240px;
+    padding: 2rem;
+    max-width: calc(100% - 240px);
+}
+
+.plesk-main h1 {
+    font-size: 1.75rem;
+    font-weight: 400;
+    margin-bottom: 1.5rem;
+    color: var(--plesk-text);
+}
+
+/* Panels */
+.panel {
+    display: none;
+}
+
+.panel.active {
+    display: block;
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Dashboard Cards */
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+}
+
+.dash-card {
+    background: var(--plesk-card);
+    border: 1px solid var(--plesk-border);
+    border-radius: 4px;
+    padding: 1.5rem;
+}
+
+.dash-card.wide {
+    grid-column: 1 / -1;
+}
+
+.dash-card h3 {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    color: var(--plesk-text);
+}
+
+.dash-card p {
+    margin-bottom: 0.5rem;
+    color: var(--plesk-text-muted);
+}
+
+.status {
+    display: inline-block;
+    padding: 0.25rem 0.75rem;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    font-weight: 500;
+}
+
+.status.online {
+    background: rgba(76, 175, 80, 0.1);
+    color: var(--plesk-success);
+}
+
+.status.warning {
+    background: rgba(255, 152, 0, 0.1);
+    color: var(--plesk-warning);
+}
+
+/* Resource Bars */
+.resource-bar {
+    margin-bottom: 1rem;
+}
+
+.resource-bar label {
+    display: block;
+    font-size: 0.85rem;
+    color: var(--plesk-text-muted);
+    margin-bottom: 0.25rem;
+}
+
+.bar {
+    height: 8px;
+    background: #e0e0e0;
+    border-radius: 4px;
+    overflow: hidden;
+    margin-bottom: 0.25rem;
+}
+
+.bar .fill {
+    height: 100%;
+    background: var(--plesk-accent);
+    border-radius: 4px;
+    transition: width 0.3s ease;
+}
+
+.resource-bar span {
+    font-size: 0.8rem;
+    color: var(--plesk-text-muted);
+}
+
+/* Buttons */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.6rem 1.25rem;
+    background: var(--plesk-accent);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.2s;
+}
+
+.btn:hover {
+    background: #00b894;
+    transform: translateY(-1px);
+}
+
+.btn.secondary {
+    background: white;
+    color: var(--plesk-text);
+    border: 1px solid var(--plesk-border);
+}
+
+.btn.secondary:hover {
+    background: #f5f5f5;
+}
+
+/* Log Container */
+.log-container {
+    background: #1e1e1e;
+    border-radius: 4px;
+    padding: 1rem;
+    font-family: 'Consolas', 'Monaco', monospace;
+    font-size: 0.85rem;
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+.log-entry {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 0.5rem;
+    color: #ccc;
+}
+
+.log-entry.success {
+    color: var(--plesk-accent);
+}
+
+.log-entry .time {
+    color: #666;
+    flex-shrink: 0;
+}
+
+/* Site List */
+.site-list {
+    background: var(--plesk-card);
+    border: 1px solid var(--plesk-border);
+    border-radius: 4px;
+}
+
+.site-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem;
+    border-bottom: 1px solid var(--plesk-border);
+}
+
+.site-item:last-child {
+    border-bottom: none;
+}
+
+.site-info h3 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.site-info p {
+    font-size: 0.9rem;
+    color: var(--plesk-text-muted);
+    margin-bottom: 0.25rem;
+}
+
+.site-actions {
+    display: flex;
+    gap: 0.5rem;
+}
+
+/* File Manager */
+.file-manager {
+    background: var(--plesk-card);
+    border: 1px solid var(--plesk-border);
+    border-radius: 4px;
+}
+
+.file-toolbar {
+    padding: 1rem;
+    border-bottom: 1px solid var(--plesk-border);
+    display: flex;
+    gap: 0.5rem;
+}
+
+.file-browser {
+    padding: 0.5rem 0;
+}
+
+.file-item {
+    display: grid;
+    grid-template-columns: 40px 2fr 1fr 1fr;
+    align-items: center;
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid var(--plesk-border);
+    transition: background 0.2s;
+}
+
+.file-item:hover {
+    background: #f5f5f5;
+}
+
+.file-item:last-child {
+    border-bottom: none;
+}
+
+.file-icon {
+    font-size: 1.25rem;
+}
+
+.file-name {
+    font-weight: 500;
+}
+
+.file-size, .file-date {
+    font-size: 0.85rem;
+    color: var(--plesk-text-muted);
+}
+
+/* PHP Settings */
+.php-settings {
+    background: var(--plesk-card);
+    border: 1px solid var(--plesk-border);
+    border-radius: 4px;
+    padding: 1.5rem;
+}
+
+.setting-group {
+    margin-bottom: 2rem;
+}
+
+.setting-group h3 {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--plesk-border);
+}
+
+.setting-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.setting-row:last-child {
+    border-bottom: none;
+}
+
+.setting-row label {
+    font-family: 'Consolas', monospace;
+    font-size: 0.9rem;
+    color: var(--plesk-text-muted);
+}
+
+.setting-row input {
+    padding: 0.4rem 0.75rem;
+    border: 1px solid var(--plesk-border);
+    border-radius: 4px;
+    font-family: 'Consolas', monospace;
+    font-size: 0.9rem;
+    background: #f5f5f5;
+    color: var(--plesk-text);
+    width: 150px;
+}
+
+.info-box {
+    background: #e3f2fd;
+    border-left: 4px solid #2196f3;
+    padding: 1rem;
+    border-radius: 4px;
+    font-size: 0.9rem;
+}
+
+/* Tables */
+.rules-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.rules-table th,
+.rules-table td {
+    text-align: left;
+    padding: 0.75rem;
+    border-bottom: 1px solid var(--plesk-border);
+}
+
+.rules-table th {
+    font-weight: 600;
+    color: var(--plesk-text-muted);
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* Placeholder */
+.placeholder {
+    text-align: center;
+    padding: 3rem;
+    color: var(--plesk-text-muted);
+    background: var(--plesk-card);
+    border: 1px solid var(--plesk-border);
+    border-radius: 4px;
+}
+
+/* SSL Status */
+.ssl-status {
+    background: var(--plesk-card);
+    border: 1px solid var(--plesk-border);
+    border-radius: 4px;
+    padding: 1.5rem;
+}
+
+.ssl-status p {
+    margin-bottom: 0.75rem;
+}
+
+/* Firewall */
+.firewall-rules {
+    background: var(--plesk-card);
+    border: 1px solid var(--plesk-border);
+    border-radius: 4px;
+    padding: 1.5rem;
+}
+
+.firewall-rules h3 {
+    margin-bottom: 1rem;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .plesk-sidebar {
+        width: 60px;
+    }
+    
+    .plesk-main {
+        margin-left: 60px;
+        max-width: calc(100% - 60px);
+    }
+    
+    .nav-item span:not(.icon),
+    .nav-title {
+        display: none;
+    }
+    
+    .dashboard-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .dash-card.wide {
+        grid-column: 1;
+    }
+}
