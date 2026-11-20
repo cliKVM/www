@@ -13,7 +13,7 @@
     "install:deps": "npm install"
   },
   "devDependencies": {
-    "@playwright/test": "^1.40.0"
+    "@playwright/test": "^1.65.1"
   },
   "keywords": [
     "e2e",
